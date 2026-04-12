@@ -8,11 +8,13 @@
         "ferry": false,
         "tram": false
       },
-      "platforms": ["2", "5", "6"]
+      "platforms": ["2", "5", "6"],
+      "duration": 15
     },
     {
       "name": "Friedrichshain Holteistraße",
-      "station": "900120013"
+      "station": "900120013",
+      "duration": 15
     }
   ],
   "trips": []
