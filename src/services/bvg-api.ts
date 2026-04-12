@@ -1,6 +1,4 @@
 import type { DepartureBoardQuery } from "../store/Departures";
-import * as departuresOstk from "../../departures-ostk.json";
-import * as departuresHolteistr from "../../departures-holteistr.json";
 
 export interface DeparturesResponse {
   departures: {
@@ -20,9 +18,9 @@ export interface DeparturesResponse {
 }
 
 export function buildDeparturesFromStationParameters(query: DepartureBoardQuery): string {
-  const transportFilter = Object.keys(query.transportModeFilter || {}).reduce(
+  const transportFilter = Object.keys(query.transportMode || {}).reduce(
     (fullFilter: Record<string, string>, option) => {
-      fullFilter[option] = query.transportModeFilter![option].toString();
+      fullFilter[option] = query.transportMode![option].toString();
       return fullFilter;
     },
     {},
@@ -31,6 +29,7 @@ export function buildDeparturesFromStationParameters(query: DepartureBoardQuery)
   return new URLSearchParams({
     ...transportFilter,
     ...(query.destination ? { destination: query.destination } : {}),
+    ...(query.duration ? { duration: query.duration.toString() } : {}),
   }).toString();
 }
 

@@ -28,8 +28,9 @@ export interface DepartureBoardQuery {
   name: string;
   station: string;
   destination?: string;
-  transportModeFilter?: Record<TransportModeTypes, boolean>;
+  transportMode?: Record<TransportModeTypes, boolean>;
   platforms?: string[];
+  duration?: number;
 }
 
 export interface DepartureBoard {

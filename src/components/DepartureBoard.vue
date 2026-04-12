@@ -3,7 +3,9 @@
     <h2>{{ name }}</h2>
     <div :class="$style.tripContainer">
       <div v-for="trip in board.trips" :class="[$style.trip]">
-        <div :class="[$style.name]">{{ trip.name }}</div>
+        <div :class="$style.name">
+          <ProductBadge :trip="trip" />
+        </div>
         <div :class="[$style.direction]">{{ trip.direction }}</div>
         <div :class="[$style.platform]">{{ trip.platform }}</div>
         <div :class="[$style.time]">{{ trip.when }}</div>
@@ -16,6 +18,7 @@
 <script setup lang="ts">
 
 import { type DepartureBoard } from '../store/Departures';
+import ProductBadge from './ProductBadge.vue';
 
 defineProps<{
   name: string;
@@ -28,7 +31,7 @@ defineProps<{
 <style module>
 .container {
   width: 48%;
-  height: 400px;
+  min-height: 260px;
   border: thin solid var(--border);
   display: flex;
   flex-direction: column;
@@ -57,12 +60,12 @@ defineProps<{
 }
 
 .trip:nth-child(odd) {
-  color: var(--accent);
   background-color: var(--accent-bg);
 }
 
 .name {
-  width: 1.5em;
+  width: 3em;
+  text-align: center;
   white-space: nowrap;
   text-overflow: clip;
 }
