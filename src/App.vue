@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <HelloWorld />
+  <h1>VBB Departures</h1>
+  <!-- <nav>
+    <RouterLink to="/">Home</RouterLink>
+    <RouterLink to="/trips">Trips</RouterLink>
+    <RouterLink to="/departures">Departures</RouterLink>
+  </nav> -->
+  <RouterView />
 </template>
