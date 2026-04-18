@@ -10,3 +10,10 @@
   </nav> -->
   <RouterView />
 </template>
+
+<style module>
+h1 {
+  font-style: italic;
+  font-size: large;
+}
+</style>
