@@ -1,4 +1,17 @@
-import type { DepartureBoardQuery } from "../store/Departures";
+import type { DepartureQuery, JourneyQuery } from "../store/Departures";
+
+export interface Line {
+  id: string;
+  name: string;
+  productName: string;
+  product: string;
+}
+
+export interface Remarks {
+  type: string; // hint, warning
+  text: string;
+  priority?: number;
+}
 
 export interface DeparturesResponse {
   departures: {
@@ -8,16 +21,12 @@ export interface DeparturesResponse {
     delay: number;
     platform?: string | null;
     direction: string;
-    line: {
-      id: string;
-      name: string;
-      productName: string;
-      product: string;
-    };
+    line: Line;
+    remarks: Remarks[];
   }[];
 }
 
-export function buildDeparturesFromStationParameters(query: DepartureBoardQuery): string {
+export function buildDeparturesFromStationParameters(query: DepartureQuery): string {
   const transportFilter = Object.keys(query.transportMode || {}).reduce(
     (fullFilter: Record<string, string>, option) => {
       fullFilter[option] = query.transportMode![option].toString();
@@ -33,7 +42,7 @@ export function buildDeparturesFromStationParameters(query: DepartureBoardQuery)
   }).toString();
 }
 
-export async function getDeparturesFromStation(query: DepartureBoardQuery): Promise<DeparturesResponse> {
+export async function getDeparturesFromStation(query: DepartureQuery): Promise<DeparturesResponse> {
   const url = `https://v6.bvg.transport.rest/stops/${query.station}/departures?${buildDeparturesFromStationParameters(query)}`;
 
   const response = await fetch(url);
@@ -41,5 +50,43 @@ export async function getDeparturesFromStation(query: DepartureBoardQuery): Prom
     throw new Error(`Response status: ${response.status}`);
   }
 
-  return await response.json() as DeparturesResponse;
+  return (await response.json()) as DeparturesResponse;
+}
+
+export interface JourneyStop {
+  type: string;
+  id: string;
+  name: string;
+}
+
+export interface JourneyResponse {
+  journeys: {
+    type: string;
+    legs: {
+      origin: JourneyStop;
+      destination: JourneyStop;
+      departure: string; // Date
+      departureDelay: number;
+      arrival: string; // Date
+      arrivalDelay: number;
+      reachable: boolean;
+      direction: String;
+      arrivalPlatform: string;
+      line?: Line;
+      remarks: Remarks[];
+      walking?: boolean;
+    }[];
+    refreshToken: string;
+  }[];
+}
+
+export async function getJourney(query: JourneyQuery): Promise<JourneyResponse> {
+  const url = `https://v6.bvg.transport.rest/journeys?from=${query.from}&to=${query.to}`;
+
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Response status: ${response.status}`);
+  }
+
+  return (await response.json()) as JourneyResponse;
 }

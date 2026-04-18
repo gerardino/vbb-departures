@@ -17,5 +17,16 @@
       "duration": 15
     }
   ],
-  "trips": []
+  "trips": [
+    {
+      "name": "To Adlershof",
+      "from": "900120003",
+      "to": "900193002"
+    },
+    {
+      "name": "To Alex",
+      "from": "900120013",
+      "to": "900100003"
+    }
+  ]
 }

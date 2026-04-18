@@ -1,13 +1,17 @@
 import { defineStore } from "pinia";
-import { getDeparturesFromStation } from "../services/bvg-api";
-import { parseDeparturesResponseToDepartureBoard } from "../helpers";
+import { getDeparturesFromStation, getJourney } from "../services/bvg-api";
+import { parseDeparturesResponseToDepartureBoard, parseJourneysResponseToJourneys } from "../helpers";
 import * as DEPARTURES_CONFIG from "../assets/sample-config.json";
 
-export interface Trip {
-  name: string;
+
+export interface Product {
+  productName?: string; // Transport type, S, U, RE, Tram, ICE, Bus
+  name?: string;
+}
+
+export type Connection = Product & {
   direction: string;
   platform?: string | undefined | null;
-  productName: string; // Transport type, S, U, RE, Tram, ICE, Bus
   when: string;
   delay: number;
 }
@@ -24,7 +28,7 @@ export const TransportModes = {
 
 export type TransportModeTypes = (typeof TransportModes)[keyof typeof TransportModes];
 
-export interface DepartureBoardQuery {
+export interface DepartureQuery {
   name: string;
   station: string;
   destination?: string;
@@ -34,40 +38,83 @@ export interface DepartureBoardQuery {
 }
 
 export interface DepartureBoard {
-  trips: Trip[];
+  trips: Connection[];
   lastUpdated: Date;
   isLoading: boolean;
   isErrored: boolean;
 }
 
-export interface DepartureStateBoard {
-  query: DepartureBoardQuery;
+export interface Departure {
+  query: DepartureQuery;
   board?: DepartureBoard;
+  isLoading: boolean;
+}
+
+export type TripLeg = Product & {
+  from: string;
+  to: string;
+  arrival: Date;
+  departure: Date;
+  arrivalDelay: number;
+  departureDelay: number;
+  walk: boolean;
+  warnings: string[];
+}
+
+export interface Journey {
+    from: string;
+    to: string;
+    legs: TripLeg[];
+    lastUpdated: Date;
+    token: string;
+}
+
+export interface JourneyQuery {
+  from: string;
+  to: string;
+  name: string;
+}
+
+export interface Trip {
+  name: string;
+  trips: Journey[];
+  query: JourneyQuery;
+  isLoading: boolean;
 }
 
 export interface DepartureState {
-  boards: DepartureStateBoard[];
+  departures: Departure[];
+  trips: Trip[];
   isLoading: boolean;
 }
 
 export const useDeparturesStore = defineStore("departures", {
   state: (): DepartureState => {
     return {
-      boards: [],
+      departures: [],
+      trips: [],
       isLoading: false,
     };
   },
   actions: {
     async init() {
-      this.boards = await Promise.all(
-        DEPARTURES_CONFIG.departures.map<Promise<DepartureStateBoard>>(async (query) => ({
+      this.departures = await Promise.all(
+        DEPARTURES_CONFIG.departures.map<Promise<Departure>>(async (query) => ({
           query,
           board: parseDeparturesResponseToDepartureBoard(query, await getDeparturesFromStation(query)),
+          isLoading: false,
         })),
       );
+
+      this.trips = await Promise.all(DEPARTURES_CONFIG.trips.map(async (query) => ({
+        name: query.name,
+        query,
+        trips: parseJourneysResponseToJourneys(await getJourney(query)),
+        isLoading: false
+      })))
     },
     async refreshBoards() {
-      await this.boards.forEach(async (board) => {
+      await this.departures.forEach(async (board) => {
         board.board = await parseDeparturesResponseToDepartureBoard(
           board.query,
           await getDeparturesFromStation(board.query),

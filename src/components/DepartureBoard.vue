@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.container">
+  <div :class="$style.departureBoardContainer">
     <h2>{{ name }}</h2>
     <div :class="$style.tripContainer">
       <div v-for="trip in board.trips" :class="[$style.trip]">
@@ -29,15 +29,20 @@ defineProps<{
 </script>
 
 <style module>
-.container {
-  width: 48%;
+.departureBoardContainer {
   min-height: 260px;
   border: thin solid var(--border);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-radius: 3%;
-  margin: 5px;
+  margin-bottom: 0.5em;
+}
+
+.departureBoardContainer h2 {
+  background: linear-gradient(90deg, goldenrod 0%, orange 100%);
+  border-width: 0;
+  padding: 0.2em;
+  margin: 0;
 }
 
 .tripContainer {
@@ -48,7 +53,6 @@ defineProps<{
 .trip {
   display: flex;
   flex-direction: row;
-  /* border: thin solid blue; */
   width: 100%;
   justify-content: space-between;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

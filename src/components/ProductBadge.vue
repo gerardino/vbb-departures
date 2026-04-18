@@ -5,10 +5,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Trip } from '../store/Departures';
+import type { Product } from '../store/Departures';
 
 defineProps<{
-  trip: Trip;
+  trip: Product;
 }>();
 </script>
 
@@ -19,21 +19,12 @@ defineProps<{
   margin: 0;
   padding-left: 5px;
   padding-right: 5px;
-  /* text-wrap: wrap; */
   border: thin solid red;
   width: 2em;
   text-align: center !important;
   font-size: 0.75em;
   height: 1.2em;
   line-height: 1.2em;;
-
-  &_S {
-    border: thin solid blue;
-  }
-
-  &S {
-    border: thin solid green;
-  }
 }
 
 .badge-S {
@@ -42,6 +33,14 @@ defineProps<{
   background-color: var(--service-color);
   color: white;
   border-radius: 0.6rem;
+}
+
+.badge-U {
+  --service-color: rgb(0,101,173);
+  border: thin solid var(--service-color);
+  background-color: var(--service-color);
+  width: 1.5em;
+  color: white;
 }
 
 .badge-Bus {
@@ -107,10 +106,11 @@ defineProps<{
   color: white;
 }
 
-.badge-RE {
+.badge-RE, .badge-RB {
   --service-color: red;
   border: thin solid var(--service-color);
   background-color: var(--service-color);
   color: white;
+  width: 2.5em;
 }
 </style>
