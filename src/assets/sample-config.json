@@ -19,14 +19,24 @@
   ],
   "trips": [
     {
+      "icon": "👔",
       "name": "To Adlershof",
       "from": "900120003",
-      "to": "900193002"
+      "to": "900193002",
+      "delay": 8
     },
     {
+      "icon" : "🛍️",
       "name": "To Alex",
       "from": "900120013",
       "to": "900100003"
+    },
+    {
+      "icon" : "✈️",
+      "name": "To Airport",
+      "from": "900120003",
+      "to": "900260009",
+      "delay": 8
     }
   ]
 }

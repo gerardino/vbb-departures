@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.journeyContainer">
-    <div :class="$style.journeyHeader">{{ journey.from }} → {{ journey.to }}</div>
+    <div :class="$style.journeyHeader">{{ journey.from }} → {{ journey.to }} – {{calculateJourneyTime()}}</div>
   
     <div :class="$style.legsContainer">
       <div v-for="(leg, index) in journey.legs" :class="$style.product">
@@ -42,21 +42,20 @@ function calculateWalkingTime(legIndex: number): string {
     return getTimeDifferenceInMinutes(leg.departure, props.journey.legs[legIndex + 1].departure);
   } else {
     return getTimeDifferenceInMinutes(leg.departure, leg.arrival);
-
   }
+}
+
+function calculateJourneyTime(): string {
+  return getTimeDifferenceInMinutes(props.journey.legs[0].departure, props.journey.legs[props.journey.legs.length - 1].arrival)
 }
 
 </script>
 
 <style module>
 .journeyContainer {
-  /* border: thin solid var(--border);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border-radius: 3%; */
-  margin-bottom: 1em;
-  /* width: 100%; */
+  margin-bottom: 0.2em;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
 }
 
 .journeyHeader {
@@ -93,9 +92,8 @@ function calculateWalkingTime(legIndex: number): string {
   display: flex;
   justify-content: center;
   font-size: x-small;
+  line-height: 1.7em;
 }
-
-.product {}
 
 .walk {
   width: 3em;
