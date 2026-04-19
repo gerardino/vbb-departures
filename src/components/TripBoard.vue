@@ -24,23 +24,21 @@ defineProps<{
 <style module>
 .tripContainer {
   min-height: 260px;
-  border: thin solid var(--border);
+  border-left: thin solid var(--border);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   background-color: #111;
-  margin-bottom: 0.5em;;
+  margin-bottom: 0.5em;
+  width: 100%;
 }
 
 .tripContainer h2 {
   background: linear-gradient(90deg,blue 0%, darkblue 100%);
   border-width: 0;
+  border-top-right-radius: 0.6em;
   padding: 0.2em;
   margin: 0;
-}
-.journeysContainer {
-  padding-left: 2px;
-  padding-right: 2px;
 }
 .journey {
   border: thin solid #333;

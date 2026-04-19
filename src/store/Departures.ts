@@ -77,6 +77,7 @@ export interface JourneyQuery {
 
 export interface Trip {
   name: string;
+  icon: string;
   trips: Journey[];
   query: JourneyQuery;
   isLoading: boolean;
@@ -108,6 +109,7 @@ export const useDeparturesStore = defineStore("departures", {
 
       this.trips = await Promise.all(DEPARTURES_CONFIG.trips.map(async (query) => ({
         name: query.name,
+        icon: query.icon,
         query,
         trips: parseJourneysResponseToJourneys(await getJourney(query)),
         isLoading: false
