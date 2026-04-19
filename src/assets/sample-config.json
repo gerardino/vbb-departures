@@ -30,7 +30,7 @@
         "tram": false,
         "bus": false,
         "ferry": false,
-        "express": true,
+        "express": false,
         "regional": false
       },
       "platforms": ["11", "12"],
@@ -44,20 +44,47 @@
       "name": "To Adlershof",
       "from": "900120003",
       "to": "900193002",
-      "delay": 8
+      "delay": 8,
+      "transportMode": {
+        "suburban": true,
+        "subway": true,
+        "tram": true,
+        "bus": true,
+        "ferry": false,
+        "express": true,
+        "regional": true
+      }
     },
     {
       "icon": "🛍️",
       "name": "To Alex",
       "from": "900120013",
-      "to": "900100003"
+      "to": "900100003",
+      "transportMode": {
+        "suburban": true,
+        "subway": true,
+        "tram": true,
+        "bus": true,
+        "ferry": false,
+        "express": true,
+        "regional": true
+      }
     },
     {
       "icon": "✈️",
       "name": "To Airport",
       "from": "900120003",
       "to": "900260009",
-      "delay": 8
+      "delay": 8,
+      "transportMode": {
+        "suburban": true,
+        "subway": true,
+        "tram": true,
+        "bus": true,
+        "ferry": false,
+        "express": true,
+        "regional": true
+      }
     }
   ]
 }

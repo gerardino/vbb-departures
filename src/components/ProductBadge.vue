@@ -106,11 +106,15 @@ defineProps<{
   color: white;
 }
 
-.badge-RE, .badge-RB {
+.badge-RE, .badge-RB, .badge-IC, .badge-ICE {
   --service-color: red;
   border: thin solid var(--service-color);
   background-color: var(--service-color);
   color: white;
   width: 2.5em;
+}
+
+.badge-IC, .badge-ICE {
+  width: 4em;
 }
 </style>
