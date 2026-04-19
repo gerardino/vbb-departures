@@ -30,11 +30,11 @@ defineProps<{
 
 <style module>
 .departureBoardContainer {
-  height: 14em;
+  height: 11em;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  margin-bottom: 0.5em;
+  margin-bottom: 2px;
 }
 
 .departureBoardContainer h2 {
@@ -63,16 +63,18 @@ defineProps<{
   width: 100%;
   justify-content: space-between;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: medium;
+  font-size: smaller;
+  background: linear-gradient(90deg, #000 0%, #111 5%, #222 50%, #111 95%, #000 100%);
 }
 
 .trip div {
-  margin: 5px;
+  margin: 0.2em;
   text-align: left;
 }
 
 .trip:nth-child(odd) {
-  background-color: var(--accent-bg);
+  background: linear-gradient(90deg, #222 0%, #333 5%, #444 50%, #333 95%, #222 100%);
+
 }
 
 .name {

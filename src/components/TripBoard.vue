@@ -32,7 +32,6 @@ defineProps<{
 
   display: flex;
   flex-direction: column;
-  background-color: #111;
   margin-bottom: 0.5em;
   width: 100%;
 
