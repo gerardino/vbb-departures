@@ -65,7 +65,7 @@ onUnmounted(() => {
 }
 
 .tripsContainer {
-  width: 60%;
+  width: 70%;
   padding-right: 0.25em;
 }
 
@@ -112,7 +112,7 @@ onUnmounted(() => {
 }
 
 .departuresContainer {
-  width: 40%;
+  width: 30%;
   padding-left: 0.25em;
 }
 
