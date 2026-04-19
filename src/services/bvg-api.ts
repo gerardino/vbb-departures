@@ -35,7 +35,13 @@ export function buildDeparturesFromStationParameters(query: DepartureQuery): str
     {},
   );
 
+  const when = new Date();
+  if (query.delay) {
+    when.setMinutes(when.getMinutes() + query.delay);
+  }
+
   return new URLSearchParams({
+    when: when.toISOString(),
     ...transportFilter,
     ...(query.destination ? { destination: query.destination } : {}),
     ...(query.duration ? { duration: query.duration.toString() } : {}),
@@ -80,8 +86,22 @@ export interface JourneyResponse {
   }[];
 }
 
+export function buildJourneyParameteres(query: JourneyQuery): string {
+  const departure = new Date();
+  if (query.delay) {
+    departure.setMinutes(departure.getMinutes() + query.delay);
+  }
+
+  return new URLSearchParams({
+    from: query.from,
+    to: query.to,
+    results: "6",
+    departure: departure.toISOString()
+  }).toString();
+}
+
 export async function getJourney(query: JourneyQuery): Promise<JourneyResponse> {
-  const url = `https://v6.bvg.transport.rest/journeys?from=${query.from}&to=${query.to}`;
+  const url = `https://v6.bvg.transport.rest/journeys?${buildJourneyParameteres(query)}`;
 
   const response = await fetch(url);
   if (!response.ok) {

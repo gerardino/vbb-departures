@@ -35,6 +35,7 @@ export interface DepartureQuery {
   transportMode?: Record<TransportModeTypes, boolean>;
   platforms?: string[];
   duration?: number;
+  delay?: number;
 }
 
 export interface DepartureBoard {
@@ -73,6 +74,7 @@ export interface JourneyQuery {
   from: string;
   to: string;
   name: string;
+  delay?: number;
 }
 
 export interface Trip {
@@ -87,6 +89,7 @@ export interface DepartureState {
   departures: Departure[];
   trips: Trip[];
   isLoading: boolean;
+  lastUpdated: Date;
 }
 
 export const useDeparturesStore = defineStore("departures", {
@@ -95,6 +98,7 @@ export const useDeparturesStore = defineStore("departures", {
       departures: [],
       trips: [],
       isLoading: false,
+      lastUpdated: new Date()
     };
   },
   actions: {
@@ -113,7 +117,9 @@ export const useDeparturesStore = defineStore("departures", {
         query,
         trips: parseJourneysResponseToJourneys(await getJourney(query)),
         isLoading: false
-      })))
+      })));
+
+      this.lastUpdated = new Date();
     },
     async refreshBoards() {
       await this.departures.forEach(async (board) => {

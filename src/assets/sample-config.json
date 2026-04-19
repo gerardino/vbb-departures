@@ -9,7 +9,8 @@
         "tram": false
       },
       "platforms": ["2", "5", "6"],
-      "duration": 15
+      "duration": 15,
+      "delay": 8
     },
     {
       "name": "Friedrichshain Holteistraße",

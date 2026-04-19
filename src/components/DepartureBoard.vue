@@ -30,8 +30,7 @@ defineProps<{
 
 <style module>
 .departureBoardContainer {
-  min-height: 260px;
-  border: thin solid var(--border);
+  height: 14em;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -40,14 +39,22 @@ defineProps<{
 
 .departureBoardContainer h2 {
   background: linear-gradient(90deg, goldenrod 0%, orange 100%);
+  border-top-right-radius: 0.6em;
   border-width: 0;
   padding: 0.2em;
   margin: 0;
+  font-size: larger;
 }
 
 .tripContainer {
   overflow-y: scroll;
   overflow-x: hidden;
+
+  border-image: linear-gradient(90deg, goldenrod 0%, orange 100%) 1;
+  border-style: solid;
+  border-width: thin;
+  border-top-width: 0;
+
 }
 
 .trip {
@@ -56,6 +63,7 @@ defineProps<{
   width: 100%;
   justify-content: space-between;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: medium;
 }
 
 .trip div {
