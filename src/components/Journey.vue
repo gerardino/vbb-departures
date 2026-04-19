@@ -95,7 +95,7 @@ function calculateJourneyTime(): string {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: small;
+  font-size: medium;
   line-height: 1.7em;
   padding-left: 0.4em;
   padding-right: 0.4em;
