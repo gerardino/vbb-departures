@@ -1,7 +1,8 @@
 <template>
-  <div :class="$style.tripContainer">
+  <div :class="$style.tripBoardContainer">
     <h2>{{ trip.name }}</h2>
-  
+    <h3>{{ trip.trips[0].from }} → {{ trip.trips[trip.trips.length - 1].to }}</h3>
+
     <div :class="$style.journeysContainer">
       <div v-for="journey in trip.trips" :class="$style.journey">
         <Journey :journey="journey"></Journey>
@@ -22,28 +23,56 @@ defineProps<{
 </script>
 
 <style module>
-.tripContainer {
-  min-height: 260px;
-  border-left: thin solid var(--border);
+.tripBoardContainer {
+  height: 89%;
+}
+
+.tripBoardContainer {
+  overflow: hidden;
+
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   background-color: #111;
   margin-bottom: 0.5em;
   width: 100%;
+
+  & h2 {
+    background: linear-gradient(90deg, blue 0%, darkblue 100%);
+    border-width: 0;
+    border-top-right-radius: 0.6em;
+    padding: 0.2em;
+    margin: 0;
+    font-size: larger;
+  }
+
+  & h3 {
+    background: linear-gradient(90deg, blue 0%, darkblue 100%);
+    border-width: 0;
+    padding: 0.2em;
+    margin: 0;
+    font-size: smaller;
+    line-height: 1em;
+    font-weight: 400;
+    padding-left: 1em;
+  }
 }
 
-.tripContainer h2 {
-  background: linear-gradient(90deg,blue 0%, darkblue 100%);
-  border-width: 0;
-  border-top-right-radius: 0.6em;
-  padding: 0.2em;
-  margin: 0;
+.tripBoardContainer .journeysContainer {
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
+
+.journeysContainer {
+  border-image: linear-gradient(90deg, blue 0%, darkblue 100%) 1;
+  border-style: solid;
+  border-width: thin;
+  border-top-width: 0;
+  max-height: 88%;
+}
+
 .journey {
-  border: thin solid #333;
-  width:100%;
+  width: 100%;
   margin-bottom: 0.25em;
-  background-color: #222;
+  background: linear-gradient(90deg, black 0%, #111 5%, #222 50%, #111 95%, black 100%);
 }
 </style>

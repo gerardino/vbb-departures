@@ -1,7 +1,6 @@
 <template>
   <div :class="$style.container">
     <div :class="$style.tripsContainer">
-      <h1>Trips</h1>
       <div :class="$style.tripTab">
         <div :class="$style.selectorContainer">
           <div v-for="(trip, index) in trips"
@@ -11,11 +10,12 @@
               }}</label>
           </div>
         </div>
-        <TripBoard :trip="trips[selectedJourney]" />
+        <div :class="$style.tripContainer">
+          <TripBoard :trip="trips[selectedJourney]" />
+        </div>
       </div>
     </div>
     <div :class="$style.departuresContainer">
-      <h1>Departures</h1>
       <div :class="[$style.departureBoardContainer]">
         <DepartureBoardVue v-for="board in boards" :board="board.board!" :name="board.query.name" />
       </div>
@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { useDeparturesStore, type Trip } from "../store/Departures";
-import { computed, ref, type ComputedRef } from "vue";
+import { computed, onMounted, onUnmounted, ref, type ComputedRef } from "vue";
 import DepartureBoardVue from "../components/DepartureBoard.vue";
 import TripBoard from "../components/TripBoard.vue";
 
@@ -37,17 +37,40 @@ const boards = computed(() => state.departures);
 const trips: ComputedRef<Trip[]> = computed(() => state.trips);
 
 const selectedJourney = ref<number>(0);
+
+const interval = ref();
+
+onMounted(() => {
+  interval.value = setInterval(() => {
+    state.init();
+  }, 5 * 60 * 1000);
+});
+
+onUnmounted(() => {
+  clearInterval(interval.value);
+});
+
 </script>
 
-<style module>
+  <style module>
+
+.container, .tripsContainer, .tripTab, .selectorContainer, .tripContainer {
+  height: 100%;
+  overflow: hidden;
+}
+
 .container {
   display: flex;
   flex-direction: rows;
 }
 
 .tripsContainer {
-  width: 50%;
+  width: 60%;
   padding-right: 0.25em;
+}
+
+.tripContainer {
+  width: 100%;
 }
 
 .tripTab {
@@ -59,15 +82,16 @@ const selectedJourney = ref<number>(0);
   text-align: end;
 
   & .tripSelector {
-    border: thin solid var(--border);
+    border: thin solid transparent;
     border-right: 0;
+    border-top-left-radius: 1em ;
+    border-bottom-left-radius: 1em;
+    filter: grayscale(100%);
     background-color: #222;
     width: 5em;
     height: 5em;
     text-align: center;
-    border-top-left-radius: 15%;
-    border-bottom-left-radius: 15%;
-    filter: grayscale(100%);
+    margin-bottom: 0.25em;;
 
     & input {
       display: none;
@@ -87,12 +111,8 @@ const selectedJourney = ref<number>(0);
   }
 }
 
-.tripContainer {
-  width: 100%;
-}
-
 .departuresContainer {
-  width: 50%;
+  width: 40%;
   padding-left: 0.25em;
 }
 
