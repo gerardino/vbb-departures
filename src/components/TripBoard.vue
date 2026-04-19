@@ -72,6 +72,6 @@ defineProps<{
 .journey {
   width: 100%;
   margin-bottom: 0.25em;
-  background: linear-gradient(90deg, black 0%, #111 5%, #222 50%, #111 95%, black 100%);
+  background: linear-gradient(90deg, black 0%, #111 15%, #222 50%, #111 85%, black 100%);
 }
 </style>
