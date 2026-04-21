@@ -30,7 +30,7 @@ defineProps<{
 
 <style module>
 .departureBoardContainer {
-  height: 11em;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -63,7 +63,7 @@ defineProps<{
   width: 100%;
   justify-content: space-between;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: smaller;
+  font-size: larger;
   background: linear-gradient(90deg, #000 0%, #111 5%, #222 50%, #111 95%, #000 100%);
 }
 
