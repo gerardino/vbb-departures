@@ -3,7 +3,6 @@ import { getDeparturesFromStation, getJourney } from "../services/bvg-api";
 import { parseDeparturesResponseToDepartureBoard, parseJourneysResponseToJourneys } from "../helpers";
 import * as DEPARTURES_CONFIG from "../assets/sample-config.json";
 
-
 export interface Product {
   productName?: string; // Transport type, S, U, RE, Tram, ICE, Bus
   name?: string;
@@ -14,7 +13,7 @@ export type Connection = Product & {
   platform?: string | undefined | null;
   when: string;
   delay: number;
-}
+};
 
 export const TransportModes = {
   sbahn: "suburban",
@@ -36,6 +35,7 @@ export interface DepartureQuery {
   platforms?: string[];
   duration?: number;
   delay?: number;
+  style?: string;
 }
 
 export interface DepartureBoard {
@@ -43,6 +43,7 @@ export interface DepartureBoard {
   lastUpdated: Date;
   isLoading: boolean;
   isErrored: boolean;
+  style?: string;
 }
 
 export interface Departure {
@@ -60,14 +61,14 @@ export type TripLeg = Product & {
   departureDelay: number;
   walk: boolean;
   warnings: string[];
-}
+};
 
 export interface Journey {
-    from: string;
-    to: string;
-    legs: TripLeg[];
-    lastUpdated: Date;
-    token: string;
+  from: string;
+  to: string;
+  legs: TripLeg[];
+  lastUpdated: Date;
+  token: string;
 }
 
 export interface JourneyQuery {
@@ -98,7 +99,7 @@ export const useDeparturesStore = defineStore("departures", {
       departures: [],
       trips: [],
       isLoading: false,
-      lastUpdated: new Date()
+      lastUpdated: new Date(),
     };
   },
   actions: {
@@ -106,18 +107,22 @@ export const useDeparturesStore = defineStore("departures", {
       this.departures = await Promise.all(
         DEPARTURES_CONFIG.departures.map<Promise<Departure>>(async (query) => ({
           query,
-          board: parseDeparturesResponseToDepartureBoard(query, await getDeparturesFromStation(query)),
+          board: {
+            ...parseDeparturesResponseToDepartureBoard(query, await getDeparturesFromStation(query)),
+            style: query.style,
+          },
           isLoading: false,
         })),
       );
-
-      this.trips = await Promise.all(DEPARTURES_CONFIG.trips.map(async (query) => ({
-        name: query.name,
-        icon: query.icon,
-        query,
-        trips: parseJourneysResponseToJourneys(await getJourney(query)),
-        isLoading: false
-      })));
+      this.trips = await Promise.all(
+        DEPARTURES_CONFIG.trips.map(async (query) => ({
+          name: query.name,
+          icon: query.icon,
+          query,
+          trips: parseJourneysResponseToJourneys(await getJourney(query)),
+          isLoading: false,
+        })),
+      );
 
       this.lastUpdated = new Date();
     },
