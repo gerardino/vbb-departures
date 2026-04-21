@@ -99,6 +99,12 @@ defineProps<{
   background-color: var(--service-color);
 }
 
+.badge-S9 {
+  --service-color: #992746;
+  border: thin solid var(--service-color);
+  background-color: var(--service-color);
+}
+
 .badge-Tram {
   --service-color: red;
   border: thin solid var(--service-color);

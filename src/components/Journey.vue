@@ -19,7 +19,7 @@
         </div>
       </div>
       <div :class="$style.walk">
-        <span :class="$style.time">
+        <span :class="[$style.time, $style.endTime]">
           {{ calculateJourneyTime() }}
         </span>
       </div>
@@ -55,7 +55,6 @@ function calculateJourneyTime(): string {
 
 <style module>
 .journeyContainer {
-  margin-bottom: 0.2em;
   padding-left: 0.2em;
   padding-right: 0.2em;
 }
@@ -67,7 +66,7 @@ function calculateJourneyTime(): string {
 .legsContainer {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
 }
 
@@ -81,7 +80,8 @@ function calculateJourneyTime(): string {
 
 .legHeader {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+
 }
 
 .time {
@@ -90,6 +90,13 @@ function calculateJourneyTime(): string {
   margin-right: 0.5em;
   margin-left: 0.5em;
   color: white;
+}
+.endTime {
+  transform: rotate(-90deg);
+  width: 1.2em;
+  height: unset !important;
+  padding: 0;
+  margin: 0;
 }
 
 .legContent {
@@ -118,11 +125,13 @@ function calculateJourneyTime(): string {
 }
 
 .walk {
-  width: 3em;
+  width: 2.5em;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  padding: 0;
+  margin: 0;
 }
 </style>
