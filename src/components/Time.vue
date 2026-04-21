@@ -46,6 +46,7 @@ const state = useDeparturesStore();
 .time {
   margin-top: 0.5em;
   font-size: x-large;
+  color: white;
 }
 
 .blink {

@@ -89,19 +89,21 @@ function calculateJourneyTime(): string {
   line-height: 0.9em;
   margin-right: 0.5em;
   margin-left: 0.5em;
+  color: white;
 }
 
 .legContent {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: medium;
+  font-size: larger;
   line-height: 1.7em;
   padding-left: 0.4em;
   padding-right: 0.4em;
   text-align: center;
 
-  & .from, & .to {
+  & .from,
+  & .to {
     max-width: 12em;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -111,6 +113,7 @@ function calculateJourneyTime(): string {
 
   & .from {
     font-weight: 600;
+    color: white;
   }
 }
 

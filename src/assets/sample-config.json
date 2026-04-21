@@ -1,27 +1,6 @@
 {
   "departures": [
     {
-      "name": "Ringbahn",
-      "station": "900120003",
-      "transportMode": {
-        "suburban": true,
-        "subway": false,
-        "tram": false,
-        "bus": false,
-        "ferry": false,
-        "express": false,
-        "regional": false
-      },
-      "platforms": ["11", "12"],
-      "duration": 15,
-      "delay": 8
-    },
-    {
-      "name": "Friedrichshain Holteistraße",
-      "station": "900120013",
-      "duration": 15
-    },
-    {
       "name": "Ostkreuz to City Center",
       "station": "900120003",
       "transportMode": {
@@ -35,7 +14,31 @@
       },
       "platforms": ["2", "5", "6"],
       "duration": 15,
-      "delay": 8
+      "delay": 8,
+      "style": "db"
+    },
+    {
+      "name": "Friedrichshain Holteistraße",
+      "station": "900120013",
+      "duration": 15,
+      "style": "bvg"
+    },
+    {
+      "name": "Ringbahn",
+      "station": "900120003",
+      "transportMode": {
+        "suburban": true,
+        "subway": false,
+        "tram": false,
+        "bus": false,
+        "ferry": false,
+        "express": false,
+        "regional": false
+      },
+      "platforms": ["11", "12"],
+      "duration": 15,
+      "delay": 8,
+      "style": "db"
     }
   ],
   "trips": [
