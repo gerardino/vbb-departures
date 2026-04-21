@@ -3,21 +3,25 @@
     <div :class="$style.tripsContainer">
       <div :class="$style.tripTab">
         <div :class="$style.selectorContainer">
+          <div :class="{ [$style.tripSelector]: true, [$style.selectedTrip]: selectedJourney === 0 }">
+            <input name="selectedJourney" type="radio" v-model="selectedJourney" :value="0" :id="`trip-0`"><label
+              :for="`trip-0`">🚃</label>
+          </div>
           <div v-for="(trip, index) in trips"
-            :class="{ [$style.tripSelector]: true, [$style.selectedTrip]: index === selectedJourney }">
-            <input name="selectedJourney" type="radio" v-model="selectedJourney" :value="index"
-              :id="`trip-${index}`"><label :for="`trip-${index}`">{{ trip.icon
+            :class="{ [$style.tripSelector]: true, [$style.selectedTrip]: index + 1 === selectedJourney }">
+            <input name="selectedJourney" type="radio" v-model="selectedJourney" :value="index + 1"
+              :id="`trip-${index + 1}`"><label :for="`trip-${index + 1}`">{{ trip.icon
               }}</label>
           </div>
         </div>
         <div :class="$style.tripContainer">
-          <TripBoard :trip="trips[selectedJourney]" />
+          <div v-if="selectedJourney === 0" :class="[$style.departuresBoardContainer]">
+            <div :class="[$style.departureBoardContainer]" v-for="board in boards">
+              <DepartureBoardVue :board="board.board!" :name="board.query.name" />
+            </div>
+          </div>
+          <TripBoard v-else :trip="trips[selectedJourney - 1]" />
         </div>
-      </div>
-    </div>
-    <div :class="$style.departuresContainer">
-      <div :class="[$style.departureBoardContainer]">
-        <DepartureBoardVue v-for="board in boards" :board="board.board!" :name="board.query.name" />
       </div>
     </div>
   </div>
@@ -52,9 +56,12 @@ onUnmounted(() => {
 
 </script>
 
-  <style module>
-
-.container, .tripsContainer, .tripTab, .selectorContainer, .tripContainer {
+<style module>
+.container,
+.tripsContainer,
+.tripTab,
+.selectorContainer,
+.tripContainer {
   height: 100%;
   overflow: hidden;
 }
@@ -65,7 +72,7 @@ onUnmounted(() => {
 }
 
 .tripsContainer {
-  width: 70%;
+  width: 100%;
   padding-right: 0.25em;
 }
 
@@ -84,14 +91,15 @@ onUnmounted(() => {
   & .tripSelector {
     border: thin solid transparent;
     border-right: 0;
-    border-top-left-radius: 1em ;
+    border-top-left-radius: 1em;
     border-bottom-left-radius: 1em;
     filter: grayscale(100%);
     background-color: #222;
     width: 5em;
     height: 5em;
     text-align: center;
-    margin-bottom: 0.25em;;
+    margin-bottom: 0.25em;
+    ;
 
     & input {
       display: none;
@@ -112,8 +120,20 @@ onUnmounted(() => {
 }
 
 .departuresContainer {
-  width: 30%;
+  width: 100%;
   padding-left: 0.25em;
+}
+
+.departuresBoardContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.departureBoardContainer {
+  width: 49%;
+  margin: 0.25em;
 }
 
 h1 {
