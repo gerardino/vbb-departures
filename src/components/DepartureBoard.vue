@@ -38,7 +38,8 @@ defineProps<{
 }
 
 .departureBoardContainer h2 {
-  background: linear-gradient(90deg, goldenrod 0%, orange 100%);
+  background: #222;
+  color: #aaa;
   border-top-right-radius: 0.6em;
   border-width: 0;
   padding: 0.2em;
@@ -50,7 +51,7 @@ defineProps<{
   overflow-y: scroll;
   overflow-x: hidden;
 
-  border-image: linear-gradient(90deg, goldenrod 0%, orange 100%) 1;
+  border: #222 solid thin;
   border-style: solid;
   border-width: thin;
   border-top-width: 0;
@@ -73,18 +74,13 @@ defineProps<{
     font-family: 'Courier New', Courier, monospace;
     font-weight: 700;
     color: gold;
-
-    & .direction {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: clip;
-
-    }
   }
 
   &.db {
     color: white;
     background: darkblue;
+
+
 
     &:nth-child(odd) {
       background-color: darkblue !important;
@@ -105,9 +101,10 @@ defineProps<{
 }
 
 .direction {
-  width: 60%;
-  white-space: nowrap;
+  width: 85%;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: clip;
 }
 
 .platform {

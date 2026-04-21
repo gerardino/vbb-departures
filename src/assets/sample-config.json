@@ -18,12 +18,6 @@
       "style": "db"
     },
     {
-      "name": "Friedrichshain Holteistraße",
-      "station": "900120013",
-      "duration": 15,
-      "style": "bvg"
-    },
-    {
       "name": "Ringbahn",
       "station": "900120003",
       "transportMode": {
@@ -39,6 +33,12 @@
       "duration": 15,
       "delay": 8,
       "style": "db"
+    },
+    {
+      "name": "Friedrichshain Holteistraße",
+      "station": "900120013",
+      "duration": 15,
+      "style": "bvg"
     }
   ],
   "trips": [

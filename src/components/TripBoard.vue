@@ -67,11 +67,15 @@ defineProps<{
   border-width: thin;
   border-top-width: 0;
   max-height: 88%;
+  width: 99%;
 }
 
 .journey {
-  width: 100%;
   margin-bottom: 0.25em;
   background: linear-gradient(90deg, black 0%, #111 15%, #222 50%, #111 85%, black 100%);
+  border: thin solid blue;
+  padding: 0;
+  margin: 0;
+  overflow: clip;
 }
 </style>
