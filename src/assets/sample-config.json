@@ -1,23 +1,6 @@
 {
   "departures": [
     {
-      "name": "Ostkreuz to City Center",
-      "station": "900120003",
-      "transportMode": {
-        "suburban": true,
-        "subway": false,
-        "tram": false,
-        "bus": false,
-        "ferry": false,
-        "express": true,
-        "regional": true
-      },
-      "platforms": ["2", "5", "6"],
-      "duration": 15,
-      "delay": 8,
-      "style": "db"
-    },
-    {
       "name": "Ringbahn",
       "station": "900120003",
       "transportMode": {
@@ -39,6 +22,23 @@
       "station": "900120013",
       "duration": 15,
       "style": "bvg"
+    },
+    {
+      "name": "Ostkreuz to City Center",
+      "station": "900120003",
+      "transportMode": {
+        "suburban": true,
+        "subway": false,
+        "tram": false,
+        "bus": false,
+        "ferry": false,
+        "express": true,
+        "regional": true
+      },
+      "platforms": ["2", "5", "6"],
+      "duration": 15,
+      "delay": 8,
+      "style": "db"
     }
   ],
   "trips": [

@@ -60,10 +60,16 @@ onUnmounted(() => {
 .container,
 .tripsContainer,
 .tripTab,
-.selectorContainer,
-.tripContainer {
+.selectorContainer {
   height: 100%;
   overflow: hidden;
+}
+
+.tripContainer {
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  flex-wrap: wrap;
 }
 
 .container {
@@ -74,10 +80,9 @@ onUnmounted(() => {
 .tripsContainer {
   width: 100%;
   padding-right: 0.25em;
-}
-
-.tripContainer {
+  height: 85%;
   width: 100%;
+  overflow-y: scroll;
 }
 
 .tripTab {
@@ -94,7 +99,7 @@ onUnmounted(() => {
     border-top-left-radius: 1em;
     border-bottom-left-radius: 1em;
     filter: grayscale(100%);
-    background-color: #222;
+    background: var(--layer-0);
     width: 5em;
     height: 5em;
     text-align: center;
@@ -113,8 +118,8 @@ onUnmounted(() => {
   }
 
   & .selectedTrip {
-    background: linear-gradient(135deg, #777 0%, #444 33%, #222 75%);
-    border-left-color: black;
+    background: var(--layer-2);
+    border-color: var(--layer-1);
     filter: none;
   }
 }
@@ -126,14 +131,20 @@ onUnmounted(() => {
 
 .departuresBoardContainer {
   width: 100%;
+  height: fit-content;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  background-color: var(--layer-2);
 }
 
 .departureBoardContainer {
-  width: 49%;
+  width: 100%;
+  @media (min-width: 600px) {
+    width: 48%;
+  }
   margin: 0.25em;
+  height: fit-content;
 }
 
 h1 {
