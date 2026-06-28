@@ -66,6 +66,11 @@ defineProps<{
   font-size: larger;
   background: linear-gradient(90deg, #000 0%, #111 5%, #222 50%, #111 95%, #000 100%);
 
+  @media (max-width: 900px) {
+    font-size: small;
+  }
+
+
   &:nth-child(odd) {
     background: linear-gradient(90deg, #222 0%, #333 5%, #444 50%, #333 95%, #222 100%);
   }
@@ -101,7 +106,7 @@ defineProps<{
 }
 
 .direction {
-  width: 85%;
+  width: 16em;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: clip;
