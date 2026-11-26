@@ -1,16 +1,12 @@
 <template>
-  <div :class="$style.timeContainer">
     <div :class="$style.time">
-      {{ time.getHours() }}<span :class="$style.blink">:</span>{{ pad(time.getMinutes()) }}
+        {{ time.getHours() }}<span :class="$style.blink">:</span>{{ pad(time.getMinutes()) }}
     </div>
-    <div :class="$style.lastUpdated">Last update:{{ getTime(state.lastUpdated) }}</div>
-  </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
-import { getTime, pad } from '../helpers';
-import { useDeparturesStore } from '../store/Departures';
+import { pad } from '../helpers';
 
 const time = ref(new Date());
 
@@ -25,26 +21,14 @@ onMounted(() => {
 onUnmounted(() => {
   clearInterval(interval.value);
 });
-
-const state = useDeparturesStore();
-
-
 </script>
 
 <style module>
 
-.timeContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-}
-
-.time, .lastUpdated {
-  margin-right: 0.5em;
-}
-
 .time {
-  margin-top: 0.5em;
+  margin-right: 0.5em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
   font-size: x-large;
   color: white;
 }

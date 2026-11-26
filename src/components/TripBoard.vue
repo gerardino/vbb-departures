@@ -38,7 +38,6 @@ defineProps<{
   & h2 {
     background: linear-gradient(90deg, blue 0%, darkblue 100%);
     border-width: 0;
-    border-top-right-radius: 0.6em;
     padding: 0.2em;
     margin: 0;
     font-size: larger;
