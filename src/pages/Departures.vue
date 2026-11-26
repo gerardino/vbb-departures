@@ -5,7 +5,7 @@
         <div :class="$style.selectorContainer">
           <div :class="{ [$style.tripSelector]: true, [$style.selectedTrip]: selectedJourney === 0 }">
             <input name="selectedJourney" type="radio" v-model="selectedJourney" :value="0" :id="`trip-0`"><label
-              :for="`trip-0`">🚃</label>
+              :for="`trip-0`">⏲</label>
           </div>
           <div v-for="(trip, index) in trips"
             :class="{ [$style.tripSelector]: true, [$style.selectedTrip]: index + 1 === selectedJourney }">
@@ -16,9 +16,7 @@
         </div>
         <div :class="$style.tripContainer">
           <div v-if="selectedJourney === 0" :class="[$style.departuresBoardContainer]">
-            <div :class="[$style.departureBoardContainer]" v-for="board in boards">
-              <DepartureBoardVue :board="board.board!" :name="board.query.name" />
-            </div>
+            <DepartureBoardVue v-for="board in boards" :board="board.board!" :name="board.query.name" :class="[$style.departureBoard]" />
           </div>
           <TripBoard v-else :trip="trips[selectedJourney - 1]" />
         </div>
@@ -29,7 +27,7 @@
 
 <script setup lang="ts">
 import { useDeparturesStore, type Trip } from "../store/Departures";
-import { computed, onMounted, onUnmounted, ref, type ComputedRef } from "vue";
+import { computed, onUnmounted, ref, type ComputedRef } from "vue";
 import DepartureBoardVue from "../components/DepartureBoard.vue";
 import TripBoard from "../components/TripBoard.vue";
 
@@ -43,12 +41,6 @@ const trips: ComputedRef<Trip[]> = computed(() => state.trips);
 const selectedJourney = ref<number>(0);
 
 const interval = ref();
-
-onMounted(() => {
-  interval.value = setInterval(() => {
-    state.init();
-  }, 5 * 60 * 1000);
-});
 
 onUnmounted(() => {
   clearInterval(interval.value);
@@ -80,7 +72,6 @@ onUnmounted(() => {
 .tripsContainer {
   width: 100%;
   padding-right: 0.25em;
-  height: 85%;
   width: 100%;
   overflow-y: scroll;
 }
@@ -95,11 +86,13 @@ onUnmounted(() => {
 
   & .tripSelector {
     border: thin solid transparent;
+    border-top-width: 0;
     border-right: 0;
-    border-top-left-radius: 1em;
-    border-bottom-left-radius: 1em;
+    border-top-left-radius: 0.75em;
+    border-bottom-left-radius: 0.75em;
+    color: var(--text);
     filter: grayscale(100%);
-    background: var(--layer-0);
+    background: var(--layer-1);
     width: 5em;
     height: 5em;
     text-align: center;
@@ -120,6 +113,7 @@ onUnmounted(() => {
   & .selectedTrip {
     background: var(--layer-2);
     border-color: var(--layer-1);
+    color: var(--text-h);
     filter: none;
   }
 }
@@ -131,20 +125,21 @@ onUnmounted(() => {
 
 .departuresBoardContainer {
   width: 100%;
-  height: fit-content;
+  height: 100%;
+  align-content: baseline;
+  justify-content: baseline;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   background-color: var(--layer-2);
 }
 
-.departureBoardContainer {
-  width: 100%;
-  @media (min-width: 600px) {
-    width: 48%;
-  }
+.departureBoard {
+  box-shadow: 10px 10px 25px #222;
+  border: 0;
+  flex-grow: 1;
+  max-width: 49.5%;
   margin: 0.25em;
-  height: fit-content;
 }
 
 h1 {
